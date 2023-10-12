@@ -86,7 +86,11 @@ def Adjust():
     for root, dirs, files in os.walk(initialDir):
         for file in files:
             if (file.endswith("BW.jpg")):
-                print(os.path.join(root, file))
+                fileName = os.path.join(root, file)
+                print(fileName)
+                im = cv2.imread(fileName)
+                im = imadjustAuto(im)
+                cv2.imwrite(fileName, im)
     # print(files)
     text2.delete(1.0, END)
     text2.insert(INSERT, "Ready!")
