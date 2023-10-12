@@ -8,6 +8,7 @@ from tkinter import ttk
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 from tkinter import filedialog
 from tkinter.filedialog import *
+import os
 
 import cv2
 
@@ -67,7 +68,7 @@ def print_hi(name):
     print(f'Bye, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
 def selectDir():
-    global initialDir, fileNameBase, fileNameBaseBG, fileNameBG, imBase, im, imBG, BG_normalized, imBaseBG
+    global initialDir, path
     text2.delete(1.0, END)
     text1.delete(1.0, END)
     initialDir = askdirectory(parent=window)
@@ -78,7 +79,15 @@ def selectDir():
 
 
 def Adjust():
-    global fileName, initialDir
+    global fileName, initialDir, path
+    # files = [path.name for path in Path(initialDir).glob('*BW*.jpg')]
+    # files = list(path.glob('*BW*.jpg'))
+
+    for root, dirs, files in os.walk(initialDir):
+        for file in files:
+            if (file.endswith("BW.jpg")):
+                print(os.path.join(root, file))
+    # print(files)
     text2.delete(1.0, END)
     text2.insert(INSERT, "Ready!")
 
